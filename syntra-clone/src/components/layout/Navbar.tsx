@@ -19,34 +19,40 @@ export default function Navbar() {
 
   return (
     <header
-      className={`transition-all duration-300 z-50 shadow-lg ${!scrolled
-        ? 'fixed top-0 left-0 w-full m-0 rounded-none bg-white'
-        : 'relative mx-auto mt-6 max-w-6xl rounded-2xl bg-white'}
-      `}
-      style={{ borderRadius: !scrolled ? 0 : '1rem' }}
+      className={
+        scrolled
+          ? 'fixed top-6 left-1/2 transform -translate-x-1/2 max-w-3xl w-[95vw] bg-white z-50 rounded-2xl shadow-lg transition-all duration-300'
+          : 'fixed top-0 left-0 w-full bg-white z-50 rounded-none shadow-none transition-all duration-300'
+      }
+      style={scrolled ? { borderRadius: '1.5rem' } : { borderRadius: 0 }}
     >
-      <div className={`flex items-center justify-between transition-all duration-300 ${!scrolled ? 'py-2' : 'py-6'} max-w-6xl mx-auto px-6`}>
-        <Link href="/" className="flex items-center transition-all duration-300">
-          <Image
-            src="https://ext.same-assets.com/2225457239/2256820530.png"
-            alt="Syntra logo"
-            width={!scrolled ? 40 : 60}
-            height={!scrolled ? 22 : 32}
-            className={`h-auto transition-all duration-300 ${!scrolled ? 'w-10' : 'w-15'}`}
-          />
-          <span className={`ml-2 font-serif font-normal text-syntra-navy transition-all duration-300 ${!scrolled ? 'text-xl' : 'text-2xl'}`}>Syntra</span>
-        </Link>
-        <nav className="flex items-center space-x-8">
+      <div className="flex items-center justify-between h-20 px-8">
+        {/* Logo left */}
+        <div className="flex items-center flex-1">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="https://ext.same-assets.com/2225457239/2256820530.png"
+              alt="Syntra logo"
+              width={40}
+              height={22}
+              className="h-auto w-10"
+            />
+            <span className="ml-2 font-serif font-normal text-syntra-navy text-2xl">Syntra</span>
+          </Link>
+        </div>
+        {/* Links center */}
+        <nav className="flex items-center space-x-8 flex-1 justify-center">
           <div className="relative">
             <button
-              className="flex items-center space-x-1.5 text-gray-700 hover:text-syntra-navy font-medium text-base"
+              className="flex items-center space-x-1.5 text-gray-700 hover:text-syntra-navy font-medium text-base focus:outline-none"
               onClick={() => setIsProductsOpen(!isProductsOpen)}
+              onBlur={() => setTimeout(() => setIsProductsOpen(false), 150)}
             >
               <span>Products</span>
               <ChevronDown size={16} />
             </button>
             {isProductsOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-md shadow-xl p-3 z-10">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-md shadow-xl p-3 z-10 min-w-max">
                 <Link
                   href="/electronic-health-records"
                   className="block px-4 py-2.5 text-base hover:bg-gray-50 rounded-md"
@@ -76,15 +82,18 @@ export default function Navbar() {
           >
             Careers <span className="ml-1">↗</span>
           </Link>
+        </nav>
+        {/* Button right */}
+        <div className="flex-1 flex justify-end">
           <a
             href="https://calendly.com/ayush-syntra/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-syntra-blue hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium text-base transition-colors ml-2"
+            className="bg-syntra-blue hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium text-base transition-colors"
           >
             Book a demo
           </a>
-        </nav>
+        </div>
       </div>
     </header>
   );
